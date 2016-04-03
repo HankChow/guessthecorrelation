@@ -1,3 +1,8 @@
+var canvasHeight = 320.0;
+var canvasWidth = 320.0;
+
+var threshold = 6200;
+
 function correlation(){
 	var points = document.getElementsByClassName('nv-point');
 	var pointCount = points.length;
@@ -7,8 +12,8 @@ function correlation(){
 	var y_avg = 0.0;
 	for(var i = 0; i < pointCount; i++){
 		var transform = points[i].getAttribute('transform');
-		x[i] = ((transform.substring(10, transform.length - 1).split(','))[0]) / 320.0;
-		y[i] = 1.0 - ((transform.substring(10, transform.length - 1).split(','))[1]) / 320.0;
+		x[i] = ((transform.substring(10, transform.length - 1).split(','))[0]) / canvasWidth;
+		y[i] = 1.0 - ((transform.substring(10, transform.length - 1).split(','))[1]) / canvasHeight;
 		x_avg += x[i];
 		y_avg += y[i];
 	}
@@ -37,13 +42,21 @@ function fill(){
 function clickGuess(){
 	var btnGuess = document.getElementById('submit-btn');
 	btnGuess.click();
-	setTimeout("clickNext()", 500);
+	setTimeout("clickNext()", 250);
 }
 
 function clickNext(){
 	var btnNext = document.getElementById('next-btn');
 	btnNext.click();
-	setTimeout("fill()", 500);
+	if(getScore() < threshold){
+		setTimeout("fill()", 250);
+	}
+}
+
+function getScore(){
+	var coins = document.getElementsByClassName('ncoins');
+	coinCount = coins[0].innerHTML;
+	return coinCount;
 }
 
 function main(){
