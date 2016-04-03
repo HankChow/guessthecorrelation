@@ -16,5 +16,5 @@ The default threshold value is 6200 and it is editable.
 
 ## About
 
-Author: Hank Chow
-Language used: Javascript
+* Author: Hank Chow.
+* Language used: Javascript
