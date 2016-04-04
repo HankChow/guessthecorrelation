@@ -1,7 +1,14 @@
 var canvasHeight = 320.0;
 var canvasWidth = 320.0;
 
-var threshold = 6200;
+var threshold = 50;
+
+var timeFillGuess = 250;
+var timeGuessNext = 250;
+var timeNextFill = 250;
+var isRandom = true;
+var randomFloor = 10;
+var randomCeiling = 500;
 
 function correlation(){
 	var points = document.getElementsByClassName('nv-point');
@@ -36,20 +43,29 @@ function correlation(){
 function fill(){
 	var r_input = document.getElementById('guess-input');
 	r_input.value = correlation();
-	setTimeout("clickGuess()", 250);
+	if(isRandom){
+		timeFillGuess = parseInt(Math.random() * (randomCeiling - randomFloor) + randomFloor);
+	}
+	setTimeout("clickGuess()", timeFillGuess);
 }
 
 function clickGuess(){
 	var btnGuess = document.getElementById('submit-btn');
 	btnGuess.click();
-	setTimeout("clickNext()", 250);
+	if(isRandom){
+		timeGuessNext = parseInt(Math.random() * (randomCeiling - randomFloor) + randomFloor);
+	}
+	setTimeout("clickNext()", timeGuessNext);
 }
 
 function clickNext(){
 	var btnNext = document.getElementById('next-btn');
 	btnNext.click();
 	if(getScore() < threshold){
-		setTimeout("fill()", 250);
+		if(isRandom){
+			timeNextFill = parseInt(Math.random() * (randomCeiling - randomFloor) + randomFloor);
+		}
+		setTimeout("fill()", timeNextFill);
 	}
 }
 
