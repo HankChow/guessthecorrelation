@@ -3,12 +3,17 @@ var canvasWidth = 320.0;
 
 var threshold = 3100;
 
+// Random time of submitting the form, which makes it more human-like.
+var isRandom = true;
 var timeFillGuess = 250;
 var timeGuessNext = 250;
 var timeNextFill = 250;
-var isRandom = true;
 var randomFloor = 100; // not too small or it will lead to a mistake.
 var randomCeiling = 500;
+
+// When the amount of lives is more than 1, mistakes are allowed accidently, which makes it more human-like.
+var isMistakesAllowed = true;
+var mistakeRate = 0.2;
 
 function correlation(){
 	var points = document.getElementsByClassName('nv-point');
@@ -37,6 +42,14 @@ function correlation(){
 	}
 	denominator = Math.sqrt(x_prosum * y_prosum);
 	var r = (numerator / denominator).toFixed(2);
+	if(isMistakesAllowed){
+		if(getLife() > 1){
+			var executeMistake = Math.random();
+			if(executeMistake < mistakeRate){
+				r = -r;
+			}
+		}
+	}
 	return r;
 }
 
@@ -73,6 +86,12 @@ function getScore(){
 	var coins = document.getElementsByClassName('ncoins');
 	coinCount = coins[0].innerHTML;
 	return coinCount;
+}
+
+function getLife(){
+	var lives = document.getElementsByClassName('heart-empty heart-full');
+	lifeCount = lives.length;
+	return lifeCount;
 }
 
 function main(){
