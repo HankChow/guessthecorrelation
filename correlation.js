@@ -1,7 +1,7 @@
 var canvasHeight = 320.0;
 var canvasWidth = 320.0;
 
-var threshold = 50;
+var threshold = 3100;
 
 var timeFillGuess = 250;
 var timeGuessNext = 250;
