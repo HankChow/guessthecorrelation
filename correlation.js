@@ -7,7 +7,7 @@ var timeFillGuess = 250;
 var timeGuessNext = 250;
 var timeNextFill = 250;
 var isRandom = true;
-var randomFloor = 10;
+var randomFloor = 100; // not too small or it will lead to a mistake.
 var randomCeiling = 500;
 
 function correlation(){
